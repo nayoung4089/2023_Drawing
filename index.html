@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meme Maker</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <div class="title">🐥나림판</div>
+    <div class="color-options">
+        <input type="color" id="color" />
+        <div
+            class="color-option"
+            style="background-color: #ffeaec"
+            data-color="#ffeaec"
+        ></div>
+        <div
+            class="color-option"
+            style="background-color: #f39a9d"
+            data-color="#f39a9d"
+        ></div>
+        <div
+            class="color-option"
+            style="background-color: #6db1bf"
+            data-color="#6db1bf"
+        ></div>
+        <div
+            class="color-option"
+            style="background-color: #2d936c"
+            data-color="#2d936c"
+        ></div>
+        <div
+            class="color-option"
+            style="background-color: #8e44ad"
+            data-color="#8e44ad"
+        ></div>
+        <div
+            class="color-option"
+            style="background-color: #301a4b"
+            data-color="#301a4b"
+        ></div>
+        <div
+            class="color-option"
+            style="background-color: #00c49a"
+            data-color="#00c49a"
+        ></div>
+        <div
+            class="color-option"
+            style="background-color: #f8e16c"
+            data-color="#f8e16c"
+        ></div>
+        <div
+            class="color-option"
+            style="background-color: #ffc2b4"
+            data-color="#ffc2b4"
+        ></div>
+        <div
+            class="color-option"
+            style="background-color: #d35400"
+            data-color="#d35400"
+        ></div>
+        <div
+            class="color-option"
+            style="background-color: #e67e22"
+            data-color="#e67e22"
+        ></div> 
+    </div>
+    <canvas></canvas>
+    <div class="btns">
+        <input id ="line-width" type = "range" min="1", max="10" value="5" step="0.1" />
+        <button id="mode-btn">💧 채우기</button>
+        <button id="destroy-btn">💥 새로고침</button>
+        <button id="eraser-btn">❌ 지우기</button>
+        <label for="file">
+            🎨 이미지 추가
+            <input type="file" accept="image/*" id="file"/>
+        </label>
+        <input type="text" placeholder="글을 입력하세요" id ="text"/>
+        <button id="save">📸 사진 저장</button>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html> 
