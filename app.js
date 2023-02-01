@@ -109,11 +109,63 @@ function onSaveClick(){
 }
   
 canvas.addEventListener("dblclick", onDoubleClick);
-canvas.onmousemove = onMove;
-canvas.addEventListener("mousemove", onMove);
-canvas.addEventListener("mousedown", onMouseDown);
-canvas.addEventListener("mouseup", onMouseUp); 
-canvas.addEventListener("mouseleave", onMouseUp); // 그림판 바깥에 갔을때도 false
+// 모바일을 위한 위치 정하기
+function getTouchPos(e) {
+    return {
+        x: e.touches[0].clientX - e.target.offsetLeft,
+        y: e.touches[0].clientY - e.target.offsetTop + document.documentElement.scrollTop
+    }
+}
+function touchStart(e) {
+    e.preventDefault();
+    drawing = true;
+    const { x, y } = getTouchPos(e);
+    startX = x;
+    startY = y;
+}
+function touchMove(e) {
+    if(!drawing) return;
+    const { x, y } = getTouchPos(e);
+    draw(x, y);
+    startX = x;
+    startY = y;
+}
+function touchEnd(e) {
+    if(!drawing) return;
+    // 점을 찍을 경우 위해 마지막에 점을 찍는다.
+    // touchEnd 이벤트의 경우 위치정보가 없어서 startX, startY를 가져와서 점을 찍는다.
+    ctx.beginPath();
+    ctx.arc(startX, startY, ctx.lineWidth/2, 0, 2*Math.PI);
+    ctx.fillStyle = ctx.strokeStyle;
+    ctx.fill();
+    drawing = false;
+}
+
+let isMobile = false;
+function checkMobile(){
+    if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+        isMobile = true;
+    }else{
+        isMobile = false;
+    }
+};
+checkMobile();
+console.log(isMobile);
+if(isMobile){
+    // pc버전
+    canvas.onmousemove = onMove;
+    canvas.addEventListener("mousemove", onMove);
+    canvas.addEventListener("mousedown", onMouseDown);
+    canvas.addEventListener("mouseup", onMouseUp); 
+    canvas.addEventListener("mouseleave", onMouseUp); // 그림판 바깥에 갔을때도 false
+
+}else{
+    // 모바일 버전
+    canvas.addEventListener("touchmove", touchMove, false);
+    canvas.addEventListener("touchstart", touchStart, false);
+    canvas.addEventListener("touchend", touchEnd, false);
+}
+
 // 전체 채우기
 canvas.addEventListener("click", onCanvasClick)
 
