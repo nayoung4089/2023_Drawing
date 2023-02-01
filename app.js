@@ -118,27 +118,32 @@ function getTouchPos(e) {
 }
 function touchStart(e) {
     e.preventDefault();
-    drawing = true;
+    isPainting = true;
     const { x, y } = getTouchPos(e);
     startX = x;
     startY = y;
 }
 function touchMove(e) {
-    if(!drawing) return;
+    if(!isPainting) return;
     const { x, y } = getTouchPos(e);
-    draw(x, y);
+    ctx.lineTo(x, y);
+    ctx.stroke();
     startX = x;
     startY = y;
 }
 function touchEnd(e) {
-    if(!drawing) return;
+    if(!isPainting) return;
     // 점을 찍을 경우 위해 마지막에 점을 찍는다.
     // touchEnd 이벤트의 경우 위치정보가 없어서 startX, startY를 가져와서 점을 찍는다.
     ctx.beginPath();
+    // 마지막 점에서 이어지는 문제 해결
+    const { x, y } = getTouchPos(e);
+    startX = x;
+    startY = y;
     ctx.arc(startX, startY, ctx.lineWidth/2, 0, 2*Math.PI);
     ctx.fillStyle = ctx.strokeStyle;
     ctx.fill();
-    drawing = false;
+    isPainting = false;
 }
 
 let isMobile = false;
