@@ -152,18 +152,17 @@ function checkMobile(){
 checkMobile();
 console.log(isMobile);
 if(isMobile){
+    // 모바일 버전
+    canvas.addEventListener("touchmove", touchMove, false);
+    canvas.addEventListener("touchstart", touchStart, false);
+    canvas.addEventListener("touchend", touchEnd, false);
+}else{
     // pc버전
     canvas.onmousemove = onMove;
     canvas.addEventListener("mousemove", onMove);
     canvas.addEventListener("mousedown", onMouseDown);
     canvas.addEventListener("mouseup", onMouseUp); 
     canvas.addEventListener("mouseleave", onMouseUp); // 그림판 바깥에 갔을때도 false
-
-}else{
-    // 모바일 버전
-    canvas.addEventListener("touchmove", touchMove, false);
-    canvas.addEventListener("touchstart", touchStart, false);
-    canvas.addEventListener("touchend", touchEnd, false);
 }
 
 // 전체 채우기
